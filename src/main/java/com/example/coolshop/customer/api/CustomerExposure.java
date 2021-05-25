@@ -1,5 +1,6 @@
 package com.example.coolshop.customer.api;
 
+import com.example.coolshop.customer.api.mappers.CustomerMapper;
 import com.example.coolshop.customer.api.representation.Customer;
 import com.example.coolshop.customer.domain.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,6 @@ public class CustomerExposure {
 
     @GetMapping("/customers/{customerId}")
     public Customer getCustomer(@PathVariable(value = "customerId") String customerId) {
-        return new Customer(customerService.getCustomer(customerId).getId());
+        return CustomerMapper.mapFromDomain(customerService.getCustomer(customerId));
     }
 }
