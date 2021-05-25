@@ -1,6 +1,7 @@
 package com.example.coolshop.customer.domain;
 
 import com.example.coolshop.customer.domain.model.CustomerDomain;
+import com.example.coolshop.customer.domain.model.CreateCustomerRequestDomain;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -14,7 +15,12 @@ public class CustomerService {
         return stringCustomerDomainMap.get(id);
     }
 
-    public void addCustomer(CustomerDomain customerDomain) {
-        stringCustomerDomainMap.put(customerDomain.getId(), customerDomain);
+    public void addCustomer(CreateCustomerRequestDomain customerRequestDomain) {
+        CustomerDomain customerDomain = CustomerDomain.builder()
+                .id("22")
+                .fullName(customerRequestDomain.getFullName())
+                .build();
+
+        stringCustomerDomainMap.put("22", customerDomain);
     }
 }

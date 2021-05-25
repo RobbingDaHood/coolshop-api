@@ -7,7 +7,6 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 @Builder
-public class CustomerDomain {
-    private String id;
+public class CreateCustomerRequestDomain {
     private String fullName;
 }

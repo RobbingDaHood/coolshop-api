@@ -1,10 +1,9 @@
 package com.example.coolshop.customer.domain;
 
-import com.example.coolshop.customer.api.CustomerExposure;
 import com.example.coolshop.customer.domain.model.CustomerDomain;
+import com.example.coolshop.customer.domain.model.CreateCustomerRequestDomain;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,15 +19,15 @@ class CustomerServiceTest {
     @Test
     void getCustomer() {
         //Given
-        CustomerDomain customerDomain = CustomerDomain.builder()
-                .id("22")
+        CreateCustomerRequestDomain createCustomerRequestDomain = CreateCustomerRequestDomain.builder()
+                .fullName("Jørgen Petersen")
                 .build();
-        customerService.addCustomer(customerDomain);
+        customerService.addCustomer(createCustomerRequestDomain);
 
         //when
-        CustomerDomain result = customerService.getCustomer(customerDomain.getId());
+        CustomerDomain result = customerService.getCustomer("22");
 
         //then
-        assertEquals(customerDomain, result);
+        assertEquals(createCustomerRequestDomain.getFullName(), result.getFullName());
     }
 }
