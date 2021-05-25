@@ -9,4 +9,5 @@ import lombok.Getter;
 @Builder
 public class CustomerRepresentation {
     private String id;
+    private String fullName;
 }

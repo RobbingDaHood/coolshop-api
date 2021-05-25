@@ -11,4 +11,10 @@ public class CustomerMapper {
                 .build();
     }
 
+    public static CustomerDomain mapToDomain(CustomerRepresentation customerRepresentation) {
+        return CustomerDomain.builder()
+                .fullName(customerRepresentation.getFullName())
+                .build();
+    }
+
 }

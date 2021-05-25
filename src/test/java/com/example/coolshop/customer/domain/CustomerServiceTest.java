@@ -1,11 +1,10 @@
 package com.example.coolshop.customer.domain;
 
 import com.example.coolshop.customer.domain.model.CustomerDomain;
-import com.example.coolshop.customer.domain.model.CreateCustomerRequestDomain;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CustomerServiceTest {
 
@@ -19,15 +18,15 @@ class CustomerServiceTest {
     @Test
     void getCustomer() {
         //Given
-        CreateCustomerRequestDomain createCustomerRequestDomain = CreateCustomerRequestDomain.builder()
+        CustomerDomain customerDomain = CustomerDomain.builder()
                 .fullName("Jørgen Petersen")
                 .build();
-        customerService.addCustomer(createCustomerRequestDomain);
+        CustomerDomain registeredCustomer = customerService.registerCustomer(customerDomain);
 
         //when
-        CustomerDomain result = customerService.getCustomer("22");
+        CustomerDomain result = customerService.getCustomer(registeredCustomer.getId());
 
         //then
-        assertEquals(createCustomerRequestDomain.getFullName(), result.getFullName());
+        assertEquals(customerDomain.getFullName(), result.getFullName());
     }
 }
