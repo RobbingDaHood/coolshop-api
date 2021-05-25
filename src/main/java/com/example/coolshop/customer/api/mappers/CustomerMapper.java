@@ -8,6 +8,7 @@ public class CustomerMapper {
     public static CustomerRepresentation mapFromDomain(CustomerDomain customerDomain) {
         return CustomerRepresentation.builder()
                 .id(customerDomain.getId())
+                .fullName(customerDomain.getFullName())
                 .build();
     }
 
