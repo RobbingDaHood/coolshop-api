@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CustomerExposure {
 
-    private CustomerService customerService;
+    private final CustomerService customerService;
 
     public CustomerExposure(CustomerService customerService) {
         this.customerService = customerService;
