@@ -20,7 +20,11 @@ public class CustomerExposure {
     }
 
     @PostMapping("/customers")
-    public void postCustomer(@RequestBody CustomerRepresentation customerRepresentation) {
-        customerService.registerCustomer(CustomerMapper.mapToDomain(customerRepresentation));
+    public CustomerRepresentation postCustomer(@RequestBody CustomerRepresentation customerRepresentation) {
+        return CustomerMapper.mapFromDomain(
+                customerService.registerCustomer(
+                        CustomerMapper.mapToDomain(customerRepresentation)
+                )
+        );
     }
 }
