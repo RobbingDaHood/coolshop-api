@@ -1,4 +1,4 @@
-package com.example.coolshopapi;
+package com.example.coolshop;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
