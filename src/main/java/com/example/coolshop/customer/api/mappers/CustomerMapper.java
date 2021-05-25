@@ -1,12 +1,13 @@
 package com.example.coolshop.customer.api.mappers;
 
-import com.example.coolshop.customer.api.representation.Customer;
+import com.example.coolshop.customer.api.representation.CustomerRepresentation;
+import com.example.coolshop.customer.domain.model.CustomerDomain;
 
 public class CustomerMapper {
 
-    public static Customer mapFromDomain(com.example.coolshop.customer.domain.model.Customer customer) {
-        return Customer.builder()
-                .id(customer.getId())
+    public static CustomerRepresentation mapFromDomain(CustomerDomain customerDomain) {
+        return CustomerRepresentation.builder()
+                .id(customerDomain.getId())
                 .build();
     }
 

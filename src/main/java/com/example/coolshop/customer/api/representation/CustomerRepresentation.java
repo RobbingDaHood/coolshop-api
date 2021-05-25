@@ -1,4 +1,4 @@
-package com.example.coolshop.customer.domain.model;
+package com.example.coolshop.customer.api.representation;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,6 +7,6 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 @Builder
-public class Customer {
+public class CustomerRepresentation {
     private String id;
 }
