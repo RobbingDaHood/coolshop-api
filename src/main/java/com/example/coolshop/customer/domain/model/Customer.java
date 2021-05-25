@@ -1,4 +1,4 @@
-package com.example.coolshopapi.customerapi.representation;
+package com.example.coolshop.customer.domain.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
