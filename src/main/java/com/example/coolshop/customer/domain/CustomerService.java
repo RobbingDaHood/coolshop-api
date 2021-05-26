@@ -1,12 +1,12 @@
 package com.example.coolshop.customer.domain;
 
 import com.example.coolshop.customer.domain.model.CustomerDomain;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@Component
+@Service
 public class CustomerService {
     private Map<String, CustomerDomain> stringCustomerDomainMap = new HashMap<>();
 
