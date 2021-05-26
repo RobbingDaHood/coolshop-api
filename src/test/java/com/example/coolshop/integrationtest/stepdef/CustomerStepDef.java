@@ -33,23 +33,8 @@ public class CustomerStepDef extends CucumberSpringConfiguration {
                 .fullName("Jørgen Petersen")
                 .build();
 
-        HttpClient httpClient = HttpClient.create()
-                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 5000)
-                .responseTimeout(Duration.ofMillis(5000))
-                .doOnConnected(conn ->
-                        conn.addHandlerLast(new ReadTimeoutHandler(5000, TimeUnit.MILLISECONDS))
-                                .addHandlerLast(new WriteTimeoutHandler(5000, TimeUnit.MILLISECONDS)));
-
-        registeredCustomerRepresentation = WebClient.builder()
-                .clientConnector(new ReactorClientHttpConnector(httpClient))
-                .baseUrl("http://localhost:8080/customers")
-                .build()
-                .post()
-                .body(BodyInserters.fromValue(body))
-                .accept(MediaType.APPLICATION_JSON)
-                .acceptCharset(StandardCharsets.UTF_8)
-                .retrieve()
-                .bodyToMono(CustomerIntegrationTest.class)
-                .block();
+        HttpUtility.post(body, "http://localhost:8080/customers")
+        .bodyToFlux(CustomerIntegrationTest.class)
+        .blockFirst();
     }
 }
