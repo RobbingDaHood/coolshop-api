@@ -1,0 +1,21 @@
+package com.coolshop.customer.api.mappers;
+
+import com.coolshop.customer.api.representation.CustomerRepresentation;
+import com.coolshop.customer.domain.model.CustomerDomain;
+
+public class CustomerMapper {
+
+    public static CustomerRepresentation mapFromDomain(CustomerDomain customerDomain) {
+        return CustomerRepresentation.builder()
+                .id(customerDomain.getId())
+                .fullName(customerDomain.getFullName())
+                .build();
+    }
+
+    public static CustomerDomain mapToDomain(CustomerRepresentation customerRepresentation) {
+        return CustomerDomain.builder()
+                .fullName(customerRepresentation.getFullName())
+                .build();
+    }
+
+}
