@@ -4,6 +4,8 @@ import com.example.coolshop.orders.domain.exceptions.CustomerDoesNotExistExcepti
 import com.example.coolshop.orders.domain.model.OrderDomain;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class OrderService {
     private OrderRepository orderRepository;
@@ -14,7 +16,7 @@ public class OrderService {
         this.customerRepository = customerRepository;
     }
 
-    public OrderDomain getOrder(Long id) {
+    public Optional<OrderDomain> getOrder(Long id) {
         return orderRepository.getById(id);
     }
 

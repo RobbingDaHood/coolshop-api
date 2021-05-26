@@ -1,6 +1,6 @@
 package com.example.coolshop.customer.api.exceptionhandler;
 
-import com.example.coolshop.customer.api.exceptionhandler.model.CustomerDoesNotExistExceptionRest;
+import com.example.coolshop.exceptions.RestExceptionRest;
 import com.example.coolshop.customer.api.exceptions.CustomerDoesNotExistException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -18,8 +18,9 @@ public class CustomerRestResponseEntityExceptionHandler
             = { CustomerDoesNotExistException.class })
     protected ResponseEntity<Object> handleConflict(
             CustomerDoesNotExistException ex, WebRequest request) {
-        CustomerDoesNotExistExceptionRest body = CustomerDoesNotExistExceptionRest.builder()
-                .customerId(ex.getCustomerId())
+        RestExceptionRest body = RestExceptionRest.builder()
+                .exceptionName(ex.getClass().getSimpleName())
+                .id(ex.getCustomerId())
                 .message(ex.getMessage())
                 .build();
         return handleExceptionInternal(ex, body,

@@ -1,13 +1,12 @@
 package com.example.coolshop.customer.api;
 
-import com.example.coolshop.customer.api.exceptionhandler.model.CustomerDoesNotExistExceptionRest;
+import com.example.coolshop.exceptions.RestExceptionRest;
 import com.example.coolshop.customer.api.representation.CustomerRepresentation;
 import com.example.coolshop.customer.domain.CustomerService;
 import com.example.coolshop.customer.domain.model.CustomerDomain;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -20,14 +19,13 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(controllers = CustomerExposure.class)
-class CustomerDomainRepresentationExposureTest {
+class CustomerExposureTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -66,8 +64,9 @@ class CustomerDomainRepresentationExposureTest {
                 .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
                 .andReturn();
 
-        CustomerDoesNotExistExceptionRest expectedException = CustomerDoesNotExistExceptionRest.builder()
-                .customerId(22L)
+        RestExceptionRest expectedException = RestExceptionRest.builder()
+                .exceptionName("CustomerDoesNotExistException")
+                .id(22L)
                 .message("Customer 22 does not exist.")
                 .build();
         String resultJson = mvcResult.getResponse().getContentAsString();
@@ -81,14 +80,16 @@ class CustomerDomainRepresentationExposureTest {
         CustomerRepresentation customerRepresentation = CustomerRepresentation.builder()
                 .fullName("Jørgen Petersen")
                 .build();
+        CustomerDomain customerDomain = CustomerDomain.builder()
+                .fullName(customerRepresentation.getFullName())
+                .build();
 
         CustomerDomain registeredCustomerDomain = CustomerDomain.builder()
                 .id(22L)
                 .fullName(customerRepresentation.getFullName())
                 .build();
 
-        ArgumentCaptor<CustomerDomain> customerDomainCapture = ArgumentCaptor.forClass(CustomerDomain.class);
-        when(customerService.registerCustomer(customerDomainCapture.capture())).thenReturn(registeredCustomerDomain);
+        when(customerService.registerCustomer(customerDomain)).thenReturn(registeredCustomerDomain);
 
         //When and then
         MvcResult mvcResult = mockMvc.perform(post("/customers")
@@ -105,10 +106,5 @@ class CustomerDomainRepresentationExposureTest {
         String resultJson = mvcResult.getResponse().getContentAsString();
         String expectedJson = objectMapper.writeValueAsString(expectedCustomerRepresentation);
         assertEquals(expectedJson, resultJson);
-
-        CustomerDomain nonRegisteredCustomerDomain = CustomerDomain.builder()
-                .fullName(customerRepresentation.getFullName())
-                .build();
-        assertEquals(nonRegisteredCustomerDomain, customerDomainCapture.getValue());
     }
 }

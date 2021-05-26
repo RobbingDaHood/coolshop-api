@@ -5,6 +5,8 @@ import com.example.coolshop.orders.domain.model.OrderDomain;
 import com.example.coolshop.orders.persistance.mappers.OrderMapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public class OrderRepositoryImpl implements OrderRepository {
     private final OrderCrudRepository orderCrudRepository;
@@ -14,10 +16,9 @@ public class OrderRepositoryImpl implements OrderRepository {
     }
 
     @Override
-    public OrderDomain getById(Long id) {
+    public Optional<OrderDomain> getById(Long id) {
         return orderCrudRepository.findById(id)
-                .map(OrderMapper::mapToDomain)
-                .get();
+                .map(OrderMapper::mapToDomain);
     }
 
     @Override

@@ -8,8 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -32,13 +31,14 @@ class OrderServiceTest {
         OrderDomain registeredOrder = OrderDomain.builder()
                 .id(22L)
                 .build();
-        when(orderRepository.getById(registeredOrder.getId())).thenReturn(registeredOrder);
+        when(orderRepository.getById(registeredOrder.getId())).thenReturn(Optional.of(registeredOrder));
 
         //when
-        OrderDomain result = OrderService.getOrder(registeredOrder.getId());
+        Optional<OrderDomain> result = OrderService.getOrder(registeredOrder.getId());
 
         //then
-        assertEquals(registeredOrder, result);
+        assertTrue(result.isPresent());
+        assertEquals(registeredOrder, result.get());
     }
 
     @Test

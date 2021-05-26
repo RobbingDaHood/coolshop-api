@@ -1,6 +1,7 @@
 package com.example.coolshop.orders.api.exceptionhandling;
 
-import com.example.coolshop.customer.api.exceptionhandler.model.CustomerDoesNotExistExceptionRest;
+import com.example.coolshop.exceptions.RestExceptionRest;
+import com.example.coolshop.orders.api.exceptions.OrderDoesNotExistException;
 import com.example.coolshop.orders.domain.exceptions.CustomerDoesNotExistException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -18,11 +19,24 @@ public class OrdersRestResponseEntityExceptionHandler
             = { CustomerDoesNotExistException.class })
     protected ResponseEntity<Object> handleConflict(
             CustomerDoesNotExistException ex, WebRequest request) {
-        CustomerDoesNotExistExceptionRest body = CustomerDoesNotExistExceptionRest.builder()
-                .customerId(ex.getCustomerId())
+        RestExceptionRest body = RestExceptionRest.builder()
+                .exceptionName(ex.getClass().getSimpleName())
+                .id(ex.getCustomerId())
                 .message(ex.getMessage())
                 .build();
         return handleExceptionInternal(ex, body,
                 new HttpHeaders(), HttpStatus.NOT_ACCEPTABLE, request);
+    }
+    @ExceptionHandler(value
+            = { OrderDoesNotExistException.class })
+    protected ResponseEntity<Object> handleConflict(
+            OrderDoesNotExistException ex, WebRequest request) {
+        RestExceptionRest body = RestExceptionRest.builder()
+                .exceptionName(ex.getClass().getSimpleName())
+                .id(ex.getOderID())
+                .message(ex.getMessage())
+                .build();
+        return handleExceptionInternal(ex, body,
+                new HttpHeaders(), HttpStatus.NOT_FOUND, request);
     }
 }

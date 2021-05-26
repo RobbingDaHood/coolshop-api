@@ -6,8 +6,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -33,12 +35,13 @@ class OrderRepositoryImplTest {
 
         when(orderCrudRepository.findById(orderEntity.getId())).thenReturn(java.util.Optional.of(orderEntity));
 
-        OrderDomain result = orderRepository.getById(orderEntity.getId());
+        Optional<OrderDomain> result = orderRepository.getById(orderEntity.getId());
 
-        assertEquals(orderEntity.getId(), result.getId());
-        assertEquals(orderEntity.getDiscount(), result.getDiscount());
-        assertEquals(orderEntity.getCustomerId(), result.getCustomerId());
-        assertEquals(List.of(22L, 23L), result.getItemIds());
+        assertTrue(result.isPresent());
+        assertEquals(orderEntity.getId(), result.get().getId());
+        assertEquals(orderEntity.getDiscount(), result.get().getDiscount());
+        assertEquals(orderEntity.getCustomerId(), result.get().getCustomerId());
+        assertEquals(List.of(22L, 23L), result.get().getItemIds());
     }
 
     @Test
@@ -47,12 +50,14 @@ class OrderRepositoryImplTest {
                 .itemIds(List.of(22L, 23L))
                 .discount(200)
                 .customerId(21L)
-                .build();;
+                .build();
+        ;
         OrderEntity customerEntity = OrderEntity.builder()
                 .itemIds("22;23")
                 .discount(200)
                 .customerId(21L)
-                .build();;
+                .build();
+        ;
         OrderEntity registeredCustomerEntity = OrderEntity.builder()
                 .id(22L)
                 .itemIds("22;23")
