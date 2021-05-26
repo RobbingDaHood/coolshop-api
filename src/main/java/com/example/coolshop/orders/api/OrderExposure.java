@@ -19,7 +19,7 @@ public class OrderExposure {
     }
 
     @PostMapping("/orders")
-    public OrderRepresentation postCustomer(@RequestBody OrderRepresentation orderRepresentation) {
+    public OrderRepresentation postOrder(@RequestBody OrderRepresentation orderRepresentation) {
         return OrderMapper.mapFromDomain(
                 orderService.registerOrder(
                         OrderMapper.mapToDomain(orderRepresentation)

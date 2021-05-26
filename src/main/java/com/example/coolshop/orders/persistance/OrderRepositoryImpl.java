@@ -3,7 +3,9 @@ package com.example.coolshop.orders.persistance;
 import com.example.coolshop.orders.domain.OrderRepository;
 import com.example.coolshop.orders.domain.model.OrderDomain;
 import com.example.coolshop.orders.persistance.mappers.OrderMapper;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class OrderRepositoryImpl implements OrderRepository {
     private final OrderCrudRepository orderCrudRepository;
 

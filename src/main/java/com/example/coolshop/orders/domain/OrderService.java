@@ -1,7 +1,9 @@
 package com.example.coolshop.orders.domain;
 
 import com.example.coolshop.orders.domain.model.OrderDomain;
+import org.springframework.stereotype.Service;
 
+@Service
 public class OrderService {
     private OrderRepository orderRepository;
 

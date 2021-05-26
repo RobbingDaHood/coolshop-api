@@ -21,5 +21,5 @@ public class OrderEntity {
     @Column
     private int discount;
     @Column
-    private List<Long> itemIds;
+    private String itemIds;
 }

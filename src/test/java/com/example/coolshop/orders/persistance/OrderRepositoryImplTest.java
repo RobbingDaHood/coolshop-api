@@ -29,7 +29,7 @@ class OrderRepositoryImplTest {
     void getById() {
         OrderEntity orderEntity = OrderEntity.builder()
                 .id(22L)
-                .itemIds(List.of(22L, 23L))
+                .itemIds("22;23")
                 .discount(200)
                 .customerId(21L)
                 .build();
@@ -41,7 +41,7 @@ class OrderRepositoryImplTest {
         assertEquals(orderEntity.getId(), result.getId());
         assertEquals(orderEntity.getDiscount(), result.getDiscount());
         assertEquals(orderEntity.getCustomerId(), result.getCustomerId());
-        assertEquals(orderEntity.getItemIds(), result.getItemIds());
+        assertEquals(List.of(22L, 23L), result.getItemIds());
     }
 
     @Test
@@ -52,13 +52,13 @@ class OrderRepositoryImplTest {
                 .customerId(21L)
                 .build();;
         OrderEntity customerEntity = OrderEntity.builder()
-                .itemIds(List.of(22L, 23L))
+                .itemIds("22;23")
                 .discount(200)
                 .customerId(21L)
                 .build();;
         OrderEntity registeredCustomerEntity = OrderEntity.builder()
                 .id(22L)
-                .itemIds(List.of(22L, 23L))
+                .itemIds("22;23")
                 .discount(200)
                 .customerId(21L)
                 .build();
@@ -68,8 +68,8 @@ class OrderRepositoryImplTest {
         OrderDomain result = orderRepository.store(customerDomain);
 
         assertEquals(registeredCustomerEntity.getId(), result.getId());
-        assertEquals(registeredCustomerEntity.getDiscount(), result.getDiscount());
-        assertEquals(registeredCustomerEntity.getCustomerId(), result.getCustomerId());
-        assertEquals(registeredCustomerEntity.getItemIds(), result.getItemIds());
+        assertEquals(customerDomain.getDiscount(), result.getDiscount());
+        assertEquals(customerDomain.getCustomerId(), result.getCustomerId());
+        assertEquals(customerDomain.getItemIds(), result.getItemIds());
     }
 }
