@@ -15,7 +15,7 @@ public class CustomerExposure {
     }
 
     @GetMapping("/customers/{customerId}")
-    public CustomerRepresentation getCustomer(@PathVariable(value = "customerId") String customerId) {
+    public CustomerRepresentation getCustomer(@PathVariable(value = "customerId") Long customerId) {
         return CustomerMapper.mapFromDomain(customerService.getCustomer(customerId));
     }
 

@@ -36,8 +36,8 @@ class CustomerDomainRepresentationExposureTest {
 
     @Test
     void getCustomer() throws Exception {
-        CustomerDomain customerDomain = CustomerDomain.builder().id("22").fullName("Jørgen Petersen").build();
-        when(customerService.getCustomer("22")).thenReturn(customerDomain);
+        CustomerDomain customerDomain = CustomerDomain.builder().id(22L).fullName("Jørgen Petersen").build();
+        when(customerService.getCustomer(22L)).thenReturn(customerDomain);
 
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/customers/22"))
                 .andExpect(status().isOk())
@@ -61,7 +61,7 @@ class CustomerDomainRepresentationExposureTest {
                 .build();
 
         CustomerDomain registeredCustomerDomain = CustomerDomain.builder()
-                .id("22")
+                .id(22L)
                 .fullName(customerRepresentation.getFullName())
                 .build();
 

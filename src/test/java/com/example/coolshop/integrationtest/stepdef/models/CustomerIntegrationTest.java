@@ -8,6 +8,6 @@ import lombok.*;
 @EqualsAndHashCode
 @NoArgsConstructor
 public class CustomerIntegrationTest {
-    private String id;
+    private Long id;
     private String fullName;
 }

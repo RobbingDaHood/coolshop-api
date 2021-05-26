@@ -8,20 +8,17 @@ import java.util.Map;
 
 @Service
 public class CustomerService {
-    private Map<String, CustomerDomain> stringCustomerDomainMap = new HashMap<>();
+    private CustomerRepository customerRepository;
 
-    public CustomerDomain getCustomer(String id) {
-        return stringCustomerDomainMap.get(id);
+    public CustomerService(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
+    }
+
+    public CustomerDomain getCustomer(Long id) {
+        return customerRepository.getById(id);
     }
 
     public CustomerDomain registerCustomer(CustomerDomain customerDomain) {
-        CustomerDomain registeredCustomerDomain = CustomerDomain.builder()
-                .id("22")
-                .fullName(customerDomain.getFullName())
-                .build();
-
-        stringCustomerDomainMap.put("22", registeredCustomerDomain);
-
-        return registeredCustomerDomain;
+        return customerRepository.store(customerDomain);
     }
 }
