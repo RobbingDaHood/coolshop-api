@@ -1,40 +1,43 @@
 package com.example.coolshop.integrationtest.stepdef;
 
-import com.example.coolshop.customer.api.representation.CustomerRepresentation;
+import com.example.coolshop.integrationtest.CucumberSpringConfiguration;
 import com.example.coolshop.integrationtest.stepdef.models.CustomerIntegrationTest;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.netty.channel.ChannelOption;
-import io.netty.handler.timeout.ReadTimeoutHandler;
-import io.netty.handler.timeout.WriteTimeoutHandler;
-import org.springframework.http.MediaType;
-import org.springframework.http.client.reactive.ReactorClientHttpConnector;
-import org.springframework.web.reactive.function.BodyInserters;
-import org.springframework.web.reactive.function.client.WebClient;
-import reactor.netty.http.client.HttpClient;
 
-import java.nio.charset.StandardCharsets;
-import java.time.Duration;
-import java.util.concurrent.TimeUnit;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CustomerStepDef extends CucumberSpringConfiguration {
 
     private CustomerIntegrationTest registeredCustomerRepresentation;
+    private CustomerIntegrationTest fetchedCustomerRepresentation;
 
-    @When("^the client calls /version$")
-    public void the_client_issues_GET_customer() throws Throwable {
-//        executeGet("http://localhost:8080/version");
-
-        WebClient client = WebClient.create("http://localhost:8080/customers/22");
+    @When("^the client fetches the Customer$")
+    public void the_client_issues_GET_customer() {
+        fetchedCustomerRepresentation = HttpUtility.get("http://localhost:8080/customers/" + registeredCustomerRepresentation.getId())
+                .bodyToFlux(CustomerIntegrationTest.class)
+                .blockFirst();
     }
 
-    @When("^the client creates new customer$")
-    public void the_client_issues_POST_customer() throws Throwable {
+    @Given("the client creates new customer with name {string}")
+    public void the_client_issues_POST_customer(String name) {
         CustomerIntegrationTest body = CustomerIntegrationTest.builder()
-                .fullName("Jørgen Petersen")
+                .fullName(name)
                 .build();
 
-        HttpUtility.post(body, "http://localhost:8080/customers")
-        .bodyToFlux(CustomerIntegrationTest.class)
-        .blockFirst();
+        registeredCustomerRepresentation = HttpUtility.post(body, "http://localhost:8080/customers")
+                .bodyToFlux(CustomerIntegrationTest.class)
+                .blockFirst();
+    }
+
+    @Then("the registered customer has the name {string}")
+    public void the_client_registered_customer_has_same_name(String name) {
+        assertEquals(name, registeredCustomerRepresentation.getFullName());
+    }
+
+    @Then("the fetched customer has the name {string}")
+    public void the_client_fetched_customer_has_same_name(String name) {
+        assertEquals(name, fetchedCustomerRepresentation.getFullName());
     }
 }

@@ -1,17 +1,13 @@
-package com.example.coolshop.integrationtest.stepdef;
+package com.example.coolshop.integrationtest;
 
-import com.example.coolshop.CoolshopApiApplication;
 import io.cucumber.spring.CucumberContextConfiguration;
 import org.junit.Before;
 import org.junit.platform.commons.logging.Logger;
 import org.junit.platform.commons.logging.LoggerFactory;
-import org.springframework.boot.test.context.SpringBootContextLoader;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.test.context.ContextConfiguration;
 
 @SpringBootTest(classes = TestConfiguration.class)
-//@ContextConfiguration(classes = CoolshopApiApplication.class, loader = SpringBootContextLoader.class)
 @CucumberContextConfiguration
 public class CucumberSpringConfiguration {
 
