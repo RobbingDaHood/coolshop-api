@@ -1,7 +1,7 @@
 package com.coolshop.orders.connector;
 
-import com.coolshop.customer.domain.CustomerService;
-import com.coolshop.customer.domain.model.CustomerDomain;
+import com.coolshop.customers.domain.CustomerService;
+import com.coolshop.customers.domain.model.CustomerDomain;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

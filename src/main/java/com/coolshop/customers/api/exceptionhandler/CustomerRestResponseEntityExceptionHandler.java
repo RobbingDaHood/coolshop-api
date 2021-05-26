@@ -1,6 +1,6 @@
-package com.coolshop.customer.api.exceptionhandler;
+package com.coolshop.customers.api.exceptionhandler;
 
-import com.coolshop.customer.api.exceptions.CustomerDoesNotExistException;
+import com.coolshop.customers.api.exceptions.CustomerDoesNotExistException;
 import com.coolshop.exceptions.RestExceptionRest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

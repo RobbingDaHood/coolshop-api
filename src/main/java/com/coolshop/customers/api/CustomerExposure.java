@@ -1,10 +1,10 @@
-package com.coolshop.customer.api;
+package com.coolshop.customers.api;
 
-import com.coolshop.customer.api.exceptions.CustomerDoesNotExistException;
-import com.coolshop.customer.api.mappers.CustomerMapper;
-import com.coolshop.customer.api.representation.CustomerRepresentation;
-import com.coolshop.customer.domain.CustomerService;
-import com.coolshop.customer.domain.model.CustomerDomain;
+import com.coolshop.customers.api.exceptions.CustomerDoesNotExistException;
+import com.coolshop.customers.api.mappers.CustomerMapper;
+import com.coolshop.customers.api.representation.CustomerRepresentation;
+import com.coolshop.customers.domain.CustomerService;
+import com.coolshop.customers.domain.model.CustomerDomain;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 

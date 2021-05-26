@@ -1,6 +1,6 @@
-package com.coolshop.customer.domain;
+package com.coolshop.customers.domain;
 
-import com.coolshop.customer.domain.model.CustomerDomain;
+import com.coolshop.customers.domain.model.CustomerDomain;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

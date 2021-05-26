@@ -1,8 +1,8 @@
-package com.coolshop.customer.api;
+package com.coolshop.customers.api;
 
-import com.coolshop.customer.api.representation.CustomerRepresentation;
-import com.coolshop.customer.domain.CustomerService;
-import com.coolshop.customer.domain.model.CustomerDomain;
+import com.coolshop.customers.api.representation.CustomerRepresentation;
+import com.coolshop.customers.domain.CustomerService;
+import com.coolshop.customers.domain.model.CustomerDomain;
 import com.coolshop.exceptions.RestExceptionRest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;

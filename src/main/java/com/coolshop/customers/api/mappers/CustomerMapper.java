@@ -1,7 +1,7 @@
-package com.coolshop.customer.api.mappers;
+package com.coolshop.customers.api.mappers;
 
-import com.coolshop.customer.api.representation.CustomerRepresentation;
-import com.coolshop.customer.domain.model.CustomerDomain;
+import com.coolshop.customers.api.representation.CustomerRepresentation;
+import com.coolshop.customers.domain.model.CustomerDomain;
 
 public class CustomerMapper {
 

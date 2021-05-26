@@ -1,4 +1,4 @@
-package com.coolshop.customer.api.exceptions;
+package com.coolshop.customers.api.exceptions;
 
 import lombok.Getter;
 

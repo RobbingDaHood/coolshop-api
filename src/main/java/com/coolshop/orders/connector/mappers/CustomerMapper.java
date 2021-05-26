@@ -1,7 +1,7 @@
 package com.coolshop.orders.connector.mappers;
 
 
-import com.coolshop.customer.domain.model.CustomerDomain;
+import com.coolshop.customers.domain.model.CustomerDomain;
 
 public class CustomerMapper {
     public static com.coolshop.orders.domain.model.CustomerDomain mapToDomain(CustomerDomain customerRepresentation) {

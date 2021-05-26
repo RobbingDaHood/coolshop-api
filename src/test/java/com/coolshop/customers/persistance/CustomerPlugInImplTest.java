@@ -1,7 +1,7 @@
-package com.coolshop.customer.persistance;
+package com.coolshop.customers.persistance;
 
-import com.coolshop.customer.domain.model.CustomerDomain;
-import com.coolshop.customer.persistance.entities.CustomerEntity;
+import com.coolshop.customers.domain.model.CustomerDomain;
+import com.coolshop.customers.persistance.entities.CustomerEntity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

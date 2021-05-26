@@ -1,7 +1,7 @@
-package com.coolshop.customer.persistance.mappers;
+package com.coolshop.customers.persistance.mappers;
 
-import com.coolshop.customer.domain.model.CustomerDomain;
-import com.coolshop.customer.persistance.entities.CustomerEntity;
+import com.coolshop.customers.domain.model.CustomerDomain;
+import com.coolshop.customers.persistance.entities.CustomerEntity;
 
 public class CustomerMapper {
 

@@ -1,4 +1,4 @@
-package com.coolshop.customer.persistance.entities;
+package com.coolshop.customers.persistance.entities;
 
 import lombok.*;
 
