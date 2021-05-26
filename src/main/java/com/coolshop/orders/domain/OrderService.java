@@ -4,6 +4,7 @@ import com.coolshop.orders.domain.exceptions.CustomerDoesNotExistException;
 import com.coolshop.orders.domain.model.OrderDomain;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,5 +27,9 @@ public class OrderService {
         } else {
             throw new CustomerDoesNotExistException(domain.getCustomerId());
         }
+    }
+
+    public List<OrderDomain> getAllByCustomerID(Long customerId) {
+        return orderPlugIn.getAllByCustomerID(customerId);
     }
 }
