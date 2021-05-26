@@ -24,7 +24,6 @@ class CustomerServiceTest {
         //Given
         CustomerDomain registeredCustomer = CustomerDomain.builder()
                 .id(22L)
-                .fullName("Jørgen Petersen")
                 .build();
         when(customerRepository.getById(registeredCustomer.getId())).thenReturn(registeredCustomer);
 
@@ -38,9 +37,7 @@ class CustomerServiceTest {
     @Test
     void storeCustomer() {
         //Given
-        CustomerDomain customer = CustomerDomain.builder()
-                .fullName("Jørgen Petersen")
-                .build();
+        CustomerDomain customer = CustomerDomain.builder().build();
         when(customerRepository.store(customer)).thenReturn(customer);
 
         //when
