@@ -10,6 +10,6 @@ import lombok.Getter;
 @Builder
 @EqualsAndHashCode
 public class CustomerDomain {
-    private Long id;
-    private String fullName;
+    private final Long id;
+    private final String fullName;
 }

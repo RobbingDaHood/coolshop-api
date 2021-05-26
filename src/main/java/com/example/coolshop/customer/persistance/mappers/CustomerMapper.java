@@ -1,6 +1,5 @@
 package com.example.coolshop.customer.persistance.mappers;
 
-import com.example.coolshop.customer.api.representation.CustomerRepresentation;
 import com.example.coolshop.customer.domain.model.CustomerDomain;
 import com.example.coolshop.customer.persistance.entities.CustomerEntity;
 
