@@ -6,6 +6,7 @@ import com.coolshop.orders.api.representation.OrderRepresentation;
 import com.coolshop.orders.domain.OrderService;
 import com.coolshop.orders.domain.model.OrderDomain;
 import io.swagger.annotations.Api;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -34,6 +35,7 @@ public class OrderExposure {
     @PostMapping(path = "/orders",
             produces = "application/vnd.coolshop.v0.5+json;charset=UTF-8",
             consumes = "application/vnd.coolshop.v0.5+json;charset=UTF-8")
+    @ResponseStatus(HttpStatus.CREATED)
     public OrderRepresentation postOrder(@RequestBody OrderRepresentation orderRepresentation) {
         return OrderMapper.mapFromDomain(
                 orderService.registerOrder(

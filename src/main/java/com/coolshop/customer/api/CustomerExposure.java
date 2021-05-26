@@ -5,6 +5,7 @@ import com.coolshop.customer.api.mappers.CustomerMapper;
 import com.coolshop.customer.api.representation.CustomerRepresentation;
 import com.coolshop.customer.domain.CustomerService;
 import com.coolshop.customer.domain.model.CustomerDomain;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -33,6 +34,7 @@ public class CustomerExposure {
     @PostMapping(path = "/customers",
             produces = "application/vnd.coolshop.v1.0+json;charset=UTF-8",
             consumes = "application/vnd.coolshop.v1.0+json;charset=UTF-8")
+    @ResponseStatus(HttpStatus.CREATED)
     public CustomerRepresentation postCustomer(@RequestBody CustomerRepresentation customerRepresentation) {
         return CustomerMapper.mapFromDomain(
                 customerService.registerCustomer(
