@@ -1,22 +1,28 @@
 package com.example.coolshop.orders.domain;
 
+import com.example.coolshop.orders.domain.exceptions.CustomerDoesNotExistException;
+import com.example.coolshop.orders.domain.model.CustomerDomain;
 import com.example.coolshop.orders.domain.model.OrderDomain;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 class OrderServiceTest {
 
-    private final OrderRepository OrderRepository = mock(OrderRepository.class);
+    private final OrderRepository orderRepository = mock(OrderRepository.class);
+    private final CustomerRepository customerRepository = mock(CustomerRepository.class);
 
     private OrderService OrderService;
 
     @BeforeEach
     void initUseCase() {
-        OrderService = new OrderService(OrderRepository);
+        OrderService = new OrderService(orderRepository, customerRepository);
     }
 
 
@@ -26,7 +32,7 @@ class OrderServiceTest {
         OrderDomain registeredOrder = OrderDomain.builder()
                 .id(22L)
                 .build();
-        when(OrderRepository.getById(registeredOrder.getId())).thenReturn(registeredOrder);
+        when(orderRepository.getById(registeredOrder.getId())).thenReturn(registeredOrder);
 
         //when
         OrderDomain result = OrderService.getOrder(registeredOrder.getId());
@@ -38,14 +44,33 @@ class OrderServiceTest {
     @Test
     void storeOrder() {
         //Given
-        OrderDomain Order = OrderDomain.builder().build();
-        when(OrderRepository.store(Order)).thenReturn(Order);
+        OrderDomain order = OrderDomain.builder()
+                .customerId(22L)
+                .build();
+        when(orderRepository.store(order)).thenReturn(order);
+        when(customerRepository.getById(order.getCustomerId())).thenReturn(Optional.of(CustomerDomain.builder().build()));
 
         //when
-        OrderDomain result = OrderService.registerOrder(Order);
+        OrderDomain result = OrderService.registerOrder(order);
 
         //then
-        assertEquals(Order, result);
+        assertEquals(order, result);
+    }
+
+    @Test
+    void storeOrderThrowCustomerDoesNotExistException() {
+        //Given
+        OrderDomain order = OrderDomain.builder()
+                .customerId(22L)
+                .build();
+        when(orderRepository.store(order)).thenReturn(order);
+        when(customerRepository.getById(order.getCustomerId())).thenReturn(Optional.empty());
+
+        //when
+        CustomerDoesNotExistException customerDoesNotExistException = assertThrows(CustomerDoesNotExistException.class, () -> OrderService.registerOrder(order));
+
+        //then
+        assertEquals(order.getCustomerId(), customerDoesNotExistException.getCustomerId());
     }
 
 }
