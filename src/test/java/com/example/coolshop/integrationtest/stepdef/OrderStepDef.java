@@ -14,11 +14,17 @@ public class OrderStepDef extends CucumberSpringConfiguration {
 
     private OrderIntegrationTest registeredOrderRepresentation;
     private OrderIntegrationTest fetchedOrderRepresentation;
-    private OrderIntegrationTest requestCreatedOrderRepresentation = OrderIntegrationTest.builder()
-            .itemIds(List.of(22L, 23L))
-            .discount(200)
-            .customerId(21L)
-            .build();
+    private OrderIntegrationTest requestCreatedOrderRepresentation;
+    private World world;
+
+    public OrderStepDef(World world) {
+        this.world = world;
+        this.requestCreatedOrderRepresentation = OrderIntegrationTest.builder()
+                .itemIds(List.of(22L, 23L))
+                .discount(200)
+                .customerId(world.getRegisteredCustomerRepresentation().getId())
+                .build();
+    }
 
     @When("^the client fetches the order$")
     public void the_client_issues_GET_order() {
@@ -29,25 +35,19 @@ public class OrderStepDef extends CucumberSpringConfiguration {
 
     @Given("^the client creates new order$")
     public void the_client_issues_POST_order() {
-        OrderIntegrationTest body = OrderIntegrationTest.builder()
-                .itemIds(List.of(22L, 23L))
-                .discount(200)
-                .customerId(21L)
-                .build();
-
-        registeredOrderRepresentation = HttpUtility.post(body, "http://localhost:8080/orders")
+        registeredOrderRepresentation = HttpUtility.post(requestCreatedOrderRepresentation, "http://localhost:8080/orders")
                 .bodyToFlux(OrderIntegrationTest.class)
                 .blockFirst();
     }
 
-    @Then("^the registered customer is correct$")
+    @Then("^the registered order is correct$")
     public void the_client_registered_customer_has_same_name() {
         assertEquals(requestCreatedOrderRepresentation.getDiscount(), registeredOrderRepresentation.getDiscount());
         assertEquals(requestCreatedOrderRepresentation.getCustomerId(), registeredOrderRepresentation.getCustomerId());
         assertEquals(requestCreatedOrderRepresentation.getItemIds(), registeredOrderRepresentation.getItemIds());
     }
 
-    @Then("^the fetched customer is correct$")
+    @Then("^the fetched order is correct$")
     public void the_client_fetched_customer_has_same_name() {
         assertEquals(requestCreatedOrderRepresentation.getDiscount(), fetchedOrderRepresentation.getDiscount());
         assertEquals(requestCreatedOrderRepresentation.getCustomerId(), fetchedOrderRepresentation.getCustomerId());

@@ -10,12 +10,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CustomerStepDef extends CucumberSpringConfiguration {
 
-    private CustomerIntegrationTest registeredCustomerRepresentation;
     private CustomerIntegrationTest fetchedCustomerRepresentation;
+    private World world;
+
+    public CustomerStepDef(World world) {
+        this.world = world;
+    }
 
     @When("^the client fetches the Customer$")
     public void the_client_issues_GET_customer() {
-        fetchedCustomerRepresentation = HttpUtility.get("http://localhost:8080/customers/" + registeredCustomerRepresentation.getId())
+        fetchedCustomerRepresentation = HttpUtility.get(
+                "http://localhost:8080/customers/" + world.getRegisteredCustomerRepresentation().getId())
                 .bodyToFlux(CustomerIntegrationTest.class)
                 .blockFirst();
     }
@@ -26,14 +31,14 @@ public class CustomerStepDef extends CucumberSpringConfiguration {
                 .fullName(name)
                 .build();
 
-        registeredCustomerRepresentation = HttpUtility.post(body, "http://localhost:8080/customers")
+        world.setRegisteredCustomerRepresentation(HttpUtility.post(body, "http://localhost:8080/customers")
                 .bodyToFlux(CustomerIntegrationTest.class)
-                .blockFirst();
+                .blockFirst());
     }
 
     @Then("the registered customer has the name {string}")
     public void the_client_registered_customer_has_same_name(String name) {
-        assertEquals(name, registeredCustomerRepresentation.getFullName());
+        assertEquals(name, world.getRegisteredCustomerRepresentation().getFullName());
     }
 
     @Then("the fetched customer has the name {string}")
