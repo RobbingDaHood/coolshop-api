@@ -28,14 +28,19 @@ public class OrderStepDef extends CucumberSpringConfiguration {
 
     @When("^the client fetches the order$")
     public void the_client_issues_GET_order() {
-        fetchedOrderRepresentation = HttpUtility.get("http://localhost:8080/orders/" + registeredOrderRepresentation.getId())
+        fetchedOrderRepresentation = HttpUtility.get(
+                "http://localhost:8080/orders/" + registeredOrderRepresentation.getId(),
+                "application/vnd.coolshop.v0.5+json")
                 .bodyToFlux(OrderIntegrationTest.class)
                 .blockFirst();
     }
 
     @Given("^the client creates new order$")
     public void the_client_issues_POST_order() {
-        registeredOrderRepresentation = HttpUtility.post(requestCreatedOrderRepresentation, "http://localhost:8080/orders")
+        registeredOrderRepresentation = HttpUtility.post(
+                requestCreatedOrderRepresentation,
+                "http://localhost:8080/orders",
+                "application/vnd.coolshop.v0.5+json")
                 .bodyToFlux(OrderIntegrationTest.class)
                 .blockFirst();
     }

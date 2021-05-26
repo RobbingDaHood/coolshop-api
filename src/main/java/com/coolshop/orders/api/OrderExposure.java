@@ -36,11 +36,28 @@ public class OrderExposure {
             produces = "application/vnd.coolshop.v0.5+json;charset=UTF-8",
             consumes = "application/vnd.coolshop.v0.5+json;charset=UTF-8")
     @ResponseStatus(HttpStatus.CREATED)
-    public OrderRepresentation postOrder(@RequestBody OrderRepresentation orderRepresentation) {
+    public OrderRepresentation postOrder(@RequestBody OrderRepresentation orderRepresentation
+    ) {
         return OrderMapper.mapFromDomain(
                 orderService.registerOrder(
                         OrderMapper.mapToDomain(orderRepresentation)
                 )
         );
     }
+
+//    @PostMapping(path = "/orders",
+//            produces = "application/vnd.coolshop.v0.5+json;charset=UTF-8",
+//            consumes = "application/vnd.coolshop.v0.5+json;charset=UTF-8")
+//    @ResponseStatus(HttpStatus.CREATED)
+//    public OrderRepresentation postOrder(
+//            @RequestBody OrderRepresentation orderRepresentation,
+//            @PathVariable("customerId") Optional<Long> customerId
+//    ) {
+//        return OrderMapper.mapFromDomain(
+//                orderService.registerOrder(
+//                        OrderMapper.mapToDomain(orderRepresentation),
+//                        customerId
+//                )
+//        );
+//    }
 }

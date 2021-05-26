@@ -43,7 +43,7 @@ class CustomerExposureTest {
 
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/customers/22"))
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
+                .andExpect(MockMvcResultMatchers.content().contentType("application/vnd.coolshop.v1.0+json;charset=UTF-8"))
                 .andReturn();
 
         CustomerRepresentation expectedCustomerRepresentation = CustomerRepresentation.builder()
@@ -93,10 +93,10 @@ class CustomerExposureTest {
 
         //When and then
         MvcResult mvcResult = mockMvc.perform(post("/customers")
-                .contentType("application/json")
+                .contentType("application/vnd.coolshop.v1.0+json")
                 .content(objectMapper.writeValueAsString(customerRepresentation)))
-                .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
+                .andExpect(status().isCreated())
+                .andExpect(MockMvcResultMatchers.content().contentType("application/vnd.coolshop.v1.0+json;charset=UTF-8"))
                 .andReturn();
 
         CustomerRepresentation expectedCustomerRepresentation = CustomerRepresentation.builder()

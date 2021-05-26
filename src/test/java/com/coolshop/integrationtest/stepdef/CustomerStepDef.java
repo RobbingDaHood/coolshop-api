@@ -1,7 +1,7 @@
 package com.coolshop.integrationtest.stepdef;
 
-import com.coolshop.integrationtest.stepdef.models.CustomerIntegrationTest;
 import com.coolshop.integrationtest.CucumberSpringConfiguration;
+import com.coolshop.integrationtest.stepdef.models.CustomerIntegrationTest;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -21,7 +21,8 @@ public class CustomerStepDef extends CucumberSpringConfiguration {
     @When("^the client fetches the Customer$")
     public void the_client_issues_GET_customer() {
         fetchedCustomerRepresentation = HttpUtility.get(
-                "http://localhost:8080/customers/" + world.getRegisteredCustomerRepresentation().getId())
+                "http://localhost:8080/customers/" + world.getRegisteredCustomerRepresentation().getId(),
+                "application/vnd.coolshop.v1.0+json")
                 .bodyToFlux(CustomerIntegrationTest.class)
                 .blockFirst();
     }
@@ -32,7 +33,10 @@ public class CustomerStepDef extends CucumberSpringConfiguration {
                 .fullName(name)
                 .build();
 
-        world.setRegisteredCustomerRepresentation(HttpUtility.post(body, "http://localhost:8080/customers")
+        world.setRegisteredCustomerRepresentation(HttpUtility.post(
+                body,
+                "http://localhost:8080/customers",
+                "application/vnd.coolshop.v1.0+json")
                 .bodyToFlux(CustomerIntegrationTest.class)
                 .blockFirst());
     }

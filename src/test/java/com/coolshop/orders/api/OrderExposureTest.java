@@ -52,7 +52,7 @@ class OrderExposureTest {
         MvcResult mvcResult = mockMvc
                 .perform(MockMvcRequestBuilders.get("/orders/" + orderDomain.getId()))
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
+                .andExpect(MockMvcResultMatchers.content().contentType("application/vnd.coolshop.v0.5+json;charset=UTF-8"))
                 .andReturn();
 
         OrderRepresentation expectedOrderRepresentation = OrderRepresentation.builder()
@@ -110,10 +110,10 @@ class OrderExposureTest {
 
         //When and then
         MvcResult mvcResult = mockMvc.perform(post("/orders")
-                .contentType("application/json")
+                .contentType("application/vnd.coolshop.v0.5+json")
                 .content(objectMapper.writeValueAsString(orderRepresentation)))
-                .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
+                .andExpect(status().isCreated())
+                .andExpect(MockMvcResultMatchers.content().contentType("application/vnd.coolshop.v0.5+json;charset=UTF-8"))
                 .andReturn();
 
         OrderRepresentation expectedOrderRepresentation = OrderRepresentation.builder()
@@ -146,7 +146,7 @@ class OrderExposureTest {
 
         //When and then
         MvcResult mvcResult = mockMvc.perform(post("/orders")
-                .contentType("application/json")
+                .contentType("application/vnd.coolshop.v0.5+json")
                 .content(objectMapper.writeValueAsString(orderRepresentation)))
                 .andExpect(status().is(406))
                 .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))

@@ -14,7 +14,7 @@ import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 public class HttpUtility {
-    public static <T> WebClient.ResponseSpec post(T body, String url) {
+    public static <T> WebClient.ResponseSpec post(T body, String url, String accepts) {
         HttpClient httpClient = HttpClient.create()
                 .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 5000)
                 .responseTimeout(Duration.ofMillis(5000))
@@ -28,12 +28,13 @@ public class HttpUtility {
                 .build()
                 .post()
                 .body(BodyInserters.fromValue(body))
-                .accept(MediaType.APPLICATION_JSON)
+                .accept(MediaType.parseMediaType(accepts))
+                .header("Content-Type", accepts)
                 .acceptCharset(StandardCharsets.UTF_8)
                 .retrieve();
     }
 
-    public static WebClient.ResponseSpec get(String url) {
+    public static WebClient.ResponseSpec get(String url, String accepts) {
         HttpClient httpClient = HttpClient.create()
                 .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 5000)
                 .responseTimeout(Duration.ofMillis(5000))
@@ -46,7 +47,7 @@ public class HttpUtility {
                 .baseUrl(url)
                 .build()
                 .get()
-                .accept(MediaType.APPLICATION_JSON)
+                .accept(MediaType.parseMediaType(accepts))
                 .acceptCharset(StandardCharsets.UTF_8)
                 .retrieve();
     }
