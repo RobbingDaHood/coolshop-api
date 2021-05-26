@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class CustomerRepositoryImpl implements CustomerRepository {
 
-    private CustomerCrudRepository customerCrudRepository;
+    private final CustomerCrudRepository customerCrudRepository;
 
     public CustomerRepositoryImpl(CustomerCrudRepository customerCrudRepository) {
         this.customerCrudRepository = customerCrudRepository;

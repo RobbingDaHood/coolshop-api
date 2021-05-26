@@ -15,5 +15,5 @@ public class OrderDomain {
     private Long id;
     private Long customerId;
     private int discount;
-    private List<ItemDomain> items;
+    private List<Long> itemIds;
 }

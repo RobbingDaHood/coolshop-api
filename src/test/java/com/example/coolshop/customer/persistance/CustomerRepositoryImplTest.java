@@ -38,8 +38,12 @@ class CustomerRepositoryImplTest {
 
     @Test
     void store() {
-        CustomerDomain customerDomain = CustomerDomain.builder().build();
-        CustomerEntity customerEntity = CustomerEntity.builder().build();
+        CustomerDomain customerDomain = CustomerDomain.builder()
+                .fullName("Jørgen Petersen")
+                .build();;
+        CustomerEntity customerEntity = CustomerEntity.builder()
+                .fullName("Jørgen Petersen")
+                .build();;
         CustomerEntity registeredCustomerEntity = CustomerEntity.builder()
                 .id(22L)
                 .fullName("Jørgen Petersen")
