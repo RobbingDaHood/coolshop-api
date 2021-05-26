@@ -2,7 +2,9 @@ package com.example.coolshop.customer.domain;
 
 import com.example.coolshop.customer.domain.model.CustomerDomain;
 
+import java.util.Optional;
+
 public interface CustomerRepository {
-    CustomerDomain getById(Long id);
+    Optional<CustomerDomain> getById(Long id);
     CustomerDomain store(CustomerDomain domain);
 }

@@ -1,9 +1,9 @@
 package com.example.coolshop.orders.api;
 
-import com.example.coolshop.customer.api.representation.CustomerRepresentation;
-import com.example.coolshop.customer.domain.model.CustomerDomain;
+import com.example.coolshop.customer.api.exceptionhandler.model.CustomerDoesNotExistExceptionRest;
 import com.example.coolshop.orders.api.representation.OrderRepresentation;
 import com.example.coolshop.orders.domain.OrderService;
+import com.example.coolshop.orders.domain.exceptions.CustomerDoesNotExistException;
 import com.example.coolshop.orders.domain.model.OrderDomain;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -62,6 +62,34 @@ class OrderExposureTest {
                 .build();
         String resultJson = mvcResult.getResponse().getContentAsString();
         String expectedJson = objectMapper.writeValueAsString(expectedOrderRepresentation);
+        assertEquals(expectedJson, resultJson);
+    }
+
+    @Test
+    void getOrderCustomerDoesNotExist() throws Exception {
+        OrderDomain orderDomain = OrderDomain.builder()
+                .id(22L)
+                .itemIds(List.of(22L, 23L))
+                .discount(200)
+                .customerId(21L)
+                .build();
+        CustomerDoesNotExistException customerDoesNotExistException = new CustomerDoesNotExistException(orderDomain.getCustomerId());
+        when(orderService.getOrder(orderDomain.getId()))
+                .thenThrow(customerDoesNotExistException);
+
+        MvcResult mvcResult = mockMvc
+                .perform(MockMvcRequestBuilders.get("/orders/" + orderDomain.getId()))
+                .andExpect(status().is(406))
+                .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
+                .andReturn();
+
+
+        CustomerDoesNotExistExceptionRest expectedException = CustomerDoesNotExistExceptionRest.builder()
+                .customerId(21L)
+                .message("Customer 21 does not exist.")
+                .build();
+        String resultJson = mvcResult.getResponse().getContentAsString();
+        String expectedJson = objectMapper.writeValueAsString(expectedException);
         assertEquals(expectedJson, resultJson);
     }
 

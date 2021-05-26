@@ -18,6 +18,7 @@ public class CustomerConnector implements CustomerRepository {
 
     @Override
     public Optional<CustomerDomain> getById(Long id) {
-        return Optional.of(CustomerMapper.mapToDomain(customerService.getCustomer(id)));
+            return customerService.getCustomer(id)
+                    .map(CustomerMapper::mapToDomain);
     }
 }

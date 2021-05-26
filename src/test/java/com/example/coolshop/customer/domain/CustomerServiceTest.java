@@ -4,7 +4,10 @@ import com.example.coolshop.customer.domain.model.CustomerDomain;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -25,13 +28,14 @@ class CustomerServiceTest {
         CustomerDomain registeredCustomer = CustomerDomain.builder()
                 .id(22L)
                 .build();
-        when(customerRepository.getById(registeredCustomer.getId())).thenReturn(registeredCustomer);
+        when(customerRepository.getById(registeredCustomer.getId())).thenReturn(Optional.of(registeredCustomer));
 
         //when
-        CustomerDomain result = customerService.getCustomer(registeredCustomer.getId());
+        Optional<CustomerDomain> result = customerService.getCustomer(registeredCustomer.getId());
 
         //then
-        assertEquals(registeredCustomer, result);
+        assertTrue(result.isPresent());
+        assertEquals(registeredCustomer, result.get());
     }
 
     @Test

@@ -3,6 +3,7 @@ package com.example.coolshop.orders.api;
 import com.example.coolshop.orders.api.mappers.OrderMapper;
 import com.example.coolshop.orders.api.representation.OrderRepresentation;
 import com.example.coolshop.orders.domain.OrderService;
+import com.example.coolshop.orders.domain.exceptions.CustomerDoesNotExistException;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

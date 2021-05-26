@@ -5,6 +5,8 @@ import com.example.coolshop.customer.domain.model.CustomerDomain;
 import com.example.coolshop.customer.persistance.mappers.CustomerMapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public class CustomerRepositoryImpl implements CustomerRepository {
 
@@ -15,10 +17,9 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     }
 
     @Override
-    public CustomerDomain getById(Long id) {
+    public Optional<CustomerDomain> getById(Long id) {
         return customerCrudRepository.findById(id)
-                .map(CustomerMapper::mapToDomain)
-                .get();
+                .map(CustomerMapper::mapToDomain);
     }
 
     @Override

@@ -1,8 +1,5 @@
 package com.example.coolshop.orders.persistance;
 
-import com.example.coolshop.customer.domain.model.CustomerDomain;
-import com.example.coolshop.customer.persistance.CustomerRepositoryImpl;
-import com.example.coolshop.customer.persistance.entities.CustomerEntity;
 import com.example.coolshop.orders.domain.model.OrderDomain;
 import com.example.coolshop.orders.persistance.entities.OrderEntity;
 import org.junit.jupiter.api.BeforeEach;

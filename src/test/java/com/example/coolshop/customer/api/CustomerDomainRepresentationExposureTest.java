@@ -1,5 +1,6 @@
 package com.example.coolshop.customer.api;
 
+import com.example.coolshop.customer.api.exceptionhandler.model.CustomerDoesNotExistExceptionRest;
 import com.example.coolshop.customer.api.representation.CustomerRepresentation;
 import com.example.coolshop.customer.domain.CustomerService;
 import com.example.coolshop.customer.domain.model.CustomerDomain;
@@ -16,7 +17,10 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -37,7 +41,7 @@ class CustomerDomainRepresentationExposureTest {
     @Test
     void getCustomer() throws Exception {
         CustomerDomain customerDomain = CustomerDomain.builder().id(22L).fullName("Jørgen Petersen").build();
-        when(customerService.getCustomer(22L)).thenReturn(customerDomain);
+        when(customerService.getCustomer(22L)).thenReturn(Optional.of(customerDomain));
 
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/customers/22"))
                 .andExpect(status().isOk())
@@ -50,6 +54,24 @@ class CustomerDomainRepresentationExposureTest {
                 .build();
         String resultJson = mvcResult.getResponse().getContentAsString();
         String expectedJson = objectMapper.writeValueAsString(expectedCustomerRepresentation);
+        assertEquals(expectedJson, resultJson);
+    }
+
+    @Test
+    void getCustomerMissingCustomer() throws Exception {
+        when(customerService.getCustomer(22L)).thenReturn(Optional.empty());
+
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/customers/22"))
+                .andExpect(status().is(404))
+                .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
+                .andReturn();
+
+        CustomerDoesNotExistExceptionRest expectedException = CustomerDoesNotExistExceptionRest.builder()
+                .customerId(22L)
+                .message("Customer 22 does not exist.")
+                .build();
+        String resultJson = mvcResult.getResponse().getContentAsString();
+        String expectedJson = objectMapper.writeValueAsString(expectedException);
         assertEquals(expectedJson, resultJson);
     }
 

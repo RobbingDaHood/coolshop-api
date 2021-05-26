@@ -2,12 +2,13 @@ package com.example.coolshop.customer.persistance;
 
 import com.example.coolshop.customer.domain.model.CustomerDomain;
 import com.example.coolshop.customer.persistance.entities.CustomerEntity;
-import com.example.coolshop.orders.domain.OrderRepository;
-import com.example.coolshop.orders.domain.OrderService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -30,20 +31,23 @@ class CustomerRepositoryImplTest {
 
         when(customerCrudRepository.findById(customerEntity.getId())).thenReturn(java.util.Optional.of(customerEntity));
 
-        CustomerDomain result = customerRepository.getById(customerEntity.getId());
+        Optional<CustomerDomain> result = customerRepository.getById(customerEntity.getId());
 
-        assertEquals(customerEntity.getId(), result.getId());
-        assertEquals(customerEntity.getFullName(), result.getFullName());
+        assertTrue(result.isPresent());
+        assertEquals(customerEntity.getId(), result.get().getId());
+        assertEquals(customerEntity.getFullName(), result.get().getFullName());
     }
 
     @Test
     void store() {
         CustomerDomain customerDomain = CustomerDomain.builder()
                 .fullName("Jørgen Petersen")
-                .build();;
+                .build();
+        ;
         CustomerEntity customerEntity = CustomerEntity.builder()
                 .fullName("Jørgen Petersen")
-                .build();;
+                .build();
+        ;
         CustomerEntity registeredCustomerEntity = CustomerEntity.builder()
                 .id(22L)
                 .fullName("Jørgen Petersen")
