@@ -94,7 +94,7 @@ class OrderExposureTest {
     }
 
     @Test
-    void postCustomer() throws Exception {
+    void postOrder() throws Exception {
         //Given
         OrderRepresentation orderRepresentation = OrderRepresentation.builder()
                 .itemIds(List.of(22L, 23L))
