@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public class CustomerDoesNotExistException extends RuntimeException {
-    private Long customerId;
+    private final Long customerId;
 
     public CustomerDoesNotExistException(Long customerId) {
         super("Customer " + customerId + " does not exist.");

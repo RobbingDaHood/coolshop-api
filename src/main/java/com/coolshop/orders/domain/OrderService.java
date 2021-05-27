@@ -9,8 +9,8 @@ import java.util.Optional;
 
 @Service
 public class OrderService {
-    private OrderPlugIn orderPlugIn;
-    private CustomerPlugIn customerPlugIn;
+    private final OrderPlugIn orderPlugIn;
+    private final CustomerPlugIn customerPlugIn;
 
     public OrderService(OrderPlugIn orderPlugIn, CustomerPlugIn customerPlugIn) {
         this.orderPlugIn = orderPlugIn;

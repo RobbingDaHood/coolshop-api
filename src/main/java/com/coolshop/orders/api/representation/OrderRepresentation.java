@@ -13,11 +13,11 @@ import java.util.List;
 @Builder
 @EqualsAndHashCode
 public class OrderRepresentation {
-    private Long id;
+    private final Long id;
     @NotBlank(message = "Customer id is mandatory")
-    private Long customerId;
+    private final Long customerId;
     @NotBlank(message = "Discount is mandatory")
-    private int discount;
+    private final int discount;
     @NotBlank(message = "Item ids is mandatory")
-    private List<Long> itemIds;
+    private final List<Long> itemIds;
 }

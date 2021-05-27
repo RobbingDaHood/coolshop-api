@@ -12,8 +12,8 @@ import java.util.List;
 @Builder
 @EqualsAndHashCode
 public class OrderDomain {
-    private Long id;
-    private Long customerId;
-    private int discount;
-    private List<Long> itemIds;
+    private final Long id;
+    private final Long customerId;
+    private final int discount;
+    private final List<Long> itemIds;
 }

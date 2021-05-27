@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public class OrderDoesNotExistException extends RuntimeException {
-    private Long oderID;
+    private final Long oderID;
 
     public OrderDoesNotExistException(Long oderID) {
         super("Order " + oderID + " does not exist.");

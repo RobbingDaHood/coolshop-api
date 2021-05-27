@@ -6,7 +6,7 @@ import lombok.Getter;
 @Getter
 @Builder
 public class RestExceptionRest {
-    private String exceptionName;
-    private Long id;
-    private String message;
+    private final String exceptionName;
+    private final Long id;
+    private final String message;
 }
