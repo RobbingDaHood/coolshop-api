@@ -1,7 +1,7 @@
 package com.coolshop.customers.persistance;
 
-import com.coolshop.customers.domain.model.CustomerDomain;
 import com.coolshop.customers.domain.CustomerPlugIn;
+import com.coolshop.customers.domain.model.CustomerDomain;
 import com.coolshop.customers.persistance.mappers.CustomerMapper;
 import org.springframework.stereotype.Repository;
 

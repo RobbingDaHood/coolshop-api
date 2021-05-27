@@ -2,7 +2,6 @@ package com.coolshop.orders.persistance;
 
 import com.coolshop.orders.domain.OrderPlugIn;
 import com.coolshop.orders.domain.model.OrderDomain;
-import com.coolshop.orders.persistance.entities.OrderEntity;
 import com.coolshop.orders.persistance.mappers.OrderMapper;
 import org.springframework.stereotype.Repository;
 
