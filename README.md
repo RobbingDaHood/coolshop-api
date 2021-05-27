@@ -1,4 +1,7 @@
 # coolshop-api
+Currently it uses a embedded h2 database that persists in a file in project root. So just checkout build and start. 
+
+    ./mvnw spring-boot:run
 
 Find swagger-ui at: http://localhost:8080/swagger-ui
 Raw swagger is at: http://localhost:8080/v2/api-docs 
