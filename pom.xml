@@ -106,12 +106,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>cc.catalysts.structurizr</groupId>
-			<artifactId>structurizr-spring-boot</artifactId>
-			<version>${cc.catalysts.structurizr.version}</version>
-		</dependency>
-
 	</dependencies>
 
 	<build>
