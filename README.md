@@ -7,9 +7,13 @@ Raw swagger is at: http://localhost:8080/v2/api-docs
 ## Structurizer
 Non public structurizer workspace: https://structurizr.com/workspace/67343
 
+### Context
 ![Alt text](structurizer/SystemContext.png?raw=true "Title")
+### Containers
 ![Alt text](structurizer/containerContext.png?raw=true "Title")
+### Components Customer
 ![Alt text](structurizer/customerContainer.png?raw=true "Title")
+### Components Order
 ![Alt text](structurizer/OrderContainer.png?raw=true "Title")
 
 ### Code
